@@ -1,0 +1,27 @@
+parameters: {}
+environment: {}
+packages:
+  - name: sample
+    environment: {}
+    parameters: {}
+    actions:
+      - name: hello
+        main: ''
+        runtime: 'go:default'
+        environment: {}
+        parameters: {}
+
+  - name: qr
+    actions:
+      - name: qr
+        runtime: nodejs:default
+
+  - name: team
+    environment: {}
+    parameters: {}
+    actions:
+      - name: team-names
+        main: ''
+        runtime: 'go:default'
+        environment: {}
+        parameters: {}
