@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 )
 
 type Request struct {
@@ -18,8 +19,11 @@ func Main(in Request) (*Response, error) {
 	if in.Name == "" {
 		in.Name = "stranger"
 	}
-
+	var env string
+	for _, e := range os.Environ() {
+		env += fmt.Sprintf("%s\n", e)
+	}
 	return &Response{
-		Body: fmt.Sprintf("Hello %s", in.Name),
+		Body: fmt.Sprintf("Hello %s\n%s", in.Name, env),
 	}, nil
 }

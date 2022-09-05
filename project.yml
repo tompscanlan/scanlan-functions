@@ -25,3 +25,8 @@ packages:
         runtime: 'go:default'
         environment: {}
         parameters: {}
+      - name: random-list
+        main: ''
+        runtime: 'go:default'
+        environment: {}
+        parameters: {}

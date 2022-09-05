@@ -20,6 +20,7 @@ type Response struct {
 
 func Main(in Request) (*Response, error) {
 	if in.List == nil {
+		//namesURL := fmt.Sprintf("https://%s/%s", os.Getenv("__OW_API_HOST"), "team/team-names")
 		namesURL := fmt.Sprintf("https://urchin-app-lcj2a.ondigitalocean.app/%s", "team/team-names")
 		res, err := http.Get(namesURL)
 
