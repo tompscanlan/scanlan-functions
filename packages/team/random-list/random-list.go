@@ -2,7 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"math/rand"
+	"net/http"
 	"time"
 )
 
@@ -16,21 +18,27 @@ type Response struct {
 	Body       string            `json:"body,omitempty"`
 }
 
-var people = []string{
-	//	"Hite",
-	//	"Irma",
-	"Julio",
-	"Luis",
-	"Nagashree",
-	"Neeraj",
-	"Prasanthi",
-	"Scanlan",
-	//	"Sri",
-}
-
 func Main(in Request) (*Response, error) {
 	if in.List == nil {
-		in.List = people
+		namesURL := fmt.Sprintf("https://urchin-app-lcj2a.ondigitalocean.app/%s", "team/team-names")
+		res, err := http.Get(namesURL)
+
+		if err != nil {
+			return &Response{
+				StatusCode: res.StatusCode,
+			}, err
+		}
+
+		var req Request
+		err = json.NewDecoder(res.Body).Decode(&req.List)
+		if err != nil {
+			return &Response{
+					StatusCode: http.StatusFailedDependency},
+				err
+		}
+
+		in.List = req.List
+
 	}
 
 	rand.Seed(time.Now().UnixNano())
